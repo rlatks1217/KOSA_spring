@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 
+request를 보낼 때 get방식으로 보낼 경우 url에 데이터가 붙어서(query String형태로)간다는 것은 알고 있음
+request안에 url은 request start line에 포함되서 날아감 즉, requestbody에는 데이터가 실리지 않음
++ get방식의 경우 binary data를 보낼 수 없음 + 보낼 수 있는 데이터가 너무 적음
+
+what is binary data????? 실행파일, 이미지파일, 음악파일 같은 것을 말함
+
+반면에 post방식으로 보낼 경우에는 requestbody에 데이터가 담겨서 서버로 가게 됨(용량의 제한이 거의 없다고 봐도 무방)
+
+그런데도 왜 get을 쓰냐? get이 간단하고 빠르니까 사용함
+  -->
+	<h1>회원정보를 입력하세요</h1>
+	<form action="/springweb/member1" method="post"> <!-- 여기서도 method를 적어주지 않을 경우에는 기본적으로 get방식으로 호출함 -->
+		<input type="text" placeholder="이름을 입력하세요!" name="name"><br>
+		<input type="text" placeholder="전화번호를 입력하세요!" name="phone"><br>
+		<input type="text" placeholder="이이디를 입력하세요!" name="id"><br>
+		<input type="password" placeholder="비밀번호를 입력하세요!" name="pw"><br>
+		<input type="submit" value="서버로 전송!">
+	</form>
+	
+	<br><br>
+	<form action="/springweb/member2" method="post">
+		<input type="text" placeholder="이름을 입력하세요!" name="name"><br>
+		<input type="text" placeholder="전화번호를 입력하세요!" name="phone"><br>
+		<input type="text" placeholder="이이디를 입력하세요!" name="id"><br>
+		<input type="password" placeholder="비밀번호를 입력하세요!" name="pw"><br>
+		<input type="submit" value="서버로 전송!">
+	</form>
+	
+	<br><br>
+	<form action="/springweb/member3" method="post">
+		<input type="text" placeholder="이름을 입력하세요!" name="name"><br>
+		<input type="text" placeholder="전화번호를 입력하세요!" name="phone"><br>
+		<input type="text" placeholder="이이디를 입력하세요!" name="id"><br>
+		<input type="password" placeholder="비밀번호를 입력하세요!" name="pw"><br>
+		<input type="submit" value="서버로 전송!">
+	</form>
+	
+	<br><br>
+	<form action="/springweb/member4" method="post">
+		<input type="text" placeholder="이름을 입력하세요!" name="name"><br>
+		<input type="text" placeholder="전화번호를 입력하세요!" name="phone"><br>
+		<input type="text" placeholder="이이디를 입력하세요!" name="id"><br>
+		<input type="password" placeholder="비밀번호를 입력하세요!" name="pw"><br>
+		<input type="text" placeholder="주소를 입력하세요!" name="address"><br>
+		<input type="submit" value="서버로 전송!">
+	</form>
+	
+</body>
+</html>

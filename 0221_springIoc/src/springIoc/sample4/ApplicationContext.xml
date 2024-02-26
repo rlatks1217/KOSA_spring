@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="day" class="springIoc.sample4.AbstractDay" 
+	factory-method="getInstance" />
+	<!-- 
+	factory-method 속성을 이용하여 static 메소드를 호출하여 추상클래스의 인스턴스화가 가능함 
+	factory-method에 적힌 static method가 실행이 되면서 하위 클래스의 객체가 생성됨
+	하위 클래스는 해당 AbstractDay클래스의 추상 메소드를 오버라이딩하여 완성시켰기 때문에 
+	하위 클래스가 객체로 만들어질 때 상위 클래스인 AbstractDay클래스도 객체로 만들어지는 것임
+	-->
+
+</beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 상속을 통해서 초기화를 진행함(좋지 않음/tightly coupled 때문에) -->
+<bean id="developer" class="springIoc.sample7.Developer">
+	<constructor-arg index="0" value="홍길동"></constructor-arg>
+	<constructor-arg index="1" value="5000"></constructor-arg>
+	<constructor-arg index="2" value="개발 1팀"></constructor-arg>
+</bean>
+
+<!-- 필요한 객체를 주입 받는 방식 : 이게 좋아요! -->
+<!-- 하지만 이런 식으로 매번 일일이 객체를 주입해주는 구문을 쓰는 것은 불편함 ! 자동으로 해주는 기능 없나? 그래서 autowiring이라는 기능이 등장함 -->
+<bean id="emp" class="springIoc.sample7.Emp" c:name="김산" c:salary="5000" />
+
+<bean id="engineer" class="springIoc.sample7.Engineer" c:dept="기술 1팀" c:emp-ref="emp"></bean>
+
+</beans>

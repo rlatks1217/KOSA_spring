@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="foo0" class="springIoc.sample2.Foo" > <!-- scope는 대부분 default인 singleton으로 사용하기 때문에 일반적으론 생략하는 편 -->
+	<!-- 이렇게 만들면 default 생성자를 사용하여 객체를 만들게 되는 것 -->
+</bean>
+<bean id="foo1" class="springIoc.sample2.Foo" > 
+	<constructor-arg value="abc"/><!-- 앞서 봤듯이 value라는 서브태그 대신 이렇게 사용이 가능함(type속성 생략 + 인자 1개이니까 index속성 따로 안 씀) -->
+</bean>
+<bean id="foo2" class="springIoc.sample2.Foo" > 
+	<constructor-arg index="0" type="java.lang.String" value="abc"/>
+	<!-- type 속성에 reference Type을 쓸 때는 이렇게 Full패키지명.클래스명 으로 써줘야 함 -->
+	<constructor-arg index="1" type="int" value="1000"/>
+</bean>
+
+<!-- 이 객체를 주입해줄 것이기 때문에 당연히 이 객체가 먼저 존재해야 함 -->
+<bean id="myBar" class="springIoc.sample2.Bar"></bean>
+
+<bean id="foo3" class="springIoc.sample2.Foo">
+	<constructor-arg ref="myBar"></constructor-arg>
+	<!-- 객체를 인자로 넣어줄 경우 ref를 사용/여기서는 Bean을 인자로 넣어주는 것이기 때문에 해당 Bean의 id를 써야 함 -->
+</bean>
+
+<!-- 설정정보를 이렇게 작성하면 Application Context가 만들어지자마자 해당 객체가 이 5개의 객체를 만들게 됨 -->
+
+</beans>

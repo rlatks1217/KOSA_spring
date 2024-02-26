@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="obj1" class="springIoc.sample3.User" />
+
+	<bean id="obj2" class="springIoc.sample3.User">
+		<constructor-arg type="java.lang.String" value="그놈의 홍길동"></constructor-arg>
+	</bean>
+
+	<bean id="obj3" class="springIoc.sample3.User">
+		<property name="userName">
+			<value>김산</value>
+		</property>
+	</bean>
+
+	<bean id="userService_1" class="springIoc.sample3.UserServiceImpl" />
+
+	<bean id="userService_2" class="springIoc.sample3.UserServiceImpl">
+		<constructor-arg>
+			<value type="java.lang.String">생성자주입(Constructor Injection)</value>
+		</constructor-arg>
+	</bean>
+</beans>

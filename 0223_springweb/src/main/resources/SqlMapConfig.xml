@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+<!-- 	<properties resource="./driver.properties" /> -->
+<!-- 접속정보는 다른 곳에서 설정해줄 것  -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+		<setting name="LogImpl" value="LOG4J2" /> <!-- log4j와 MyBatis 연동, 쿼리문과 실행결과를 로그로 출력하기 위해 해줌 --> 
+	</settings>
+
+	<typeAliases>
+<!-- 		<typeAlias type="vo.Book" alias="book" /> -->
+	</typeAliases>
+
+</configuration>

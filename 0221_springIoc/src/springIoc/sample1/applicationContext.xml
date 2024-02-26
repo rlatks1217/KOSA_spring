@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="messageBean" class="springIoc.sample1.MessageBeanImpl" scope="singleton">
+<!-- 클래스명에 Impl이 끝에 붙어 있다면 그 클래스는 인터페이스를 구현하고 있다는 의미임 -->	 
+<!-- 
+scope 설정을 prototype일 경우 실행하면 설정정보는 읽지만 객체를 그 시점에 생성하지는 않음 
+prototype으로 설정된 Bean은 해당 Bean을 떙겨오는 구문이 실행될 때마다 생성되고 반환될 것
+-->
+	<constructor-arg><!-- 애는 생성자역할 -->
+		<value>딸기</value>
+	<!-- Bean이 생성될 때 생성자 안에  인자로 넣어줄 값들을 이 안에 value태그를 통해 정해줄 수 있음 -->
+	<!-- 한 constructor-arg 태그는 하나의 Value태그만 포함할 수 있음 -->
+	</constructor-arg>
+	
+<!-- 	이 태그는 당연히 name속성에 setter이름을 배운대로 명시해줘야 됨 -->
+	<property name="cost">
+	
+	<!-- value 태그에는 primitive Type data만 들어올 수 있음(String 제외) -->
+		<value>3000</value>
+		
+	</property>
+</bean>
+
+<!-- 같은 클래스로 원하는 다른 설정을 하여 다르게 생긴 객체를 만들 수 있음 -->
+<bean id="messageBean_1" class="springIoc.sample1.MessageBeanImpl" />
+<!-- 이 객체가 생성될 때는 default 생성자가 호출될 것 -->
+
+<bean id="messageBean_2" class="springIoc.sample1.MessageBeanImpl">
+<!-- 이 Bean 생성할 때도 default생성자가 호출됨(다른 오버로딩된 생성자를 호출하지 않았으니까) -->
+	<property name="cost">
+		<value>4000</value>
+	</property>
+</bean>
+<!-- 여기까지의 설정까지만 하고 프로그램이 실행되면 다른 객체 3개가 만들어지는 것임 -->
+
+
+<bean id="messageBean_3" class="springIoc.sample1.MessageBeanImpl"> 
+<!-- <constructor-arg>
+		 <value>바나나</value>
+	</constructor-arg>
+	<constructor-arg>
+		 <value>7000</value>
+	</constructor-arg> -->
+	<!--인자를 여러개 받는 생성자를 만들어서 객체를 만들 때 이렇게 인자를 넣어줄 수도 있음 -->
+	
+	
+	<!-- 이렇게 value 속성을 통해 인자를 작성하여 넣어줄 수 도 있음 -->
+	<constructor-arg index="0" type="java.lang.String" value="바나나" />
+	<constructor-arg index="1" type="int" value="7000" />
+	<!-- type을 굳이 써주지 않아도 value=""안이 숫자일 경우 자동으로 숫자 타입으로 바뀌어서 매개변수에 매핑됨(이 또한 Application Context가 해주는 역할임) -->
+	<!-- 매개변수의 순서대로 넣어주지 않아도 자동으로 해당 매개변수들에 Mapping해주기는 함 하지만 이렇게 쓰는 것은 좋지 않음(오류가 나는 경우가 있음)/index속성으로 들어가는 인자의 순서를 명시적으로 정해줄 수 있음 -->
+</bean>
+
+</beans>

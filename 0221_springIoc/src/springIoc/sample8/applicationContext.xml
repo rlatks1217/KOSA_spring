@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- <bean id="myObj" class="springIoc.sample8.TestBean" p:data1-ref="data1" p:data2-ref="data2"></bean> -->
+<!-- 내가 직접 원하는 bean을 지정해서 주입하는 것이기 때문에 사실 setData1에 data2를 주입시킬 수도 있음 -->
+
+<!-- 자동주입방식 -->
+<bean id="myObj" class="springIoc.sample8.TestBean" autowire="byName"></bean>
+<!-- 
+autowire="byName" 라고 쓰게 되면 해당 클래스 안에 setter의 이름(property태그의 name속성에 쓸 때처럼 생긴 형태)과 같은 id를 가진 Bean을 찾아서 알아서 싹 다 주입해줌
+setter이름과 같은 id를 가진 Bean이 없다면 당연히 주입해주지 못함
+즉, TestBean에는 data1, data2이라는 필드명이 있으므로 이 XML에 있는 data1, data2이라는 id를 가진 Bean들을 알아서 주입시켜준다는 얘기
+
+근데 setter의 이름 자체는 필드명을 보고 만듬 -> name속성은 setter의 이름에서 따와서 작성함 -> 결국 name속성에 써주는 이름은 필드명과 똑같이 생겼다는 것을 알 수 있음
+-->
+<bean id="data1" class="springIoc.sample8.DataBean" />
+<bean id="data2" class="springIoc.sample8.DataBean" />
+
+
+</beans>

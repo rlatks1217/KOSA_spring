@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--
+xmlns:c="http://www.springframework.org/schema/c" c 스키마라고 부름
+xmlns:p="http://www.springframework.org/schema/p" p 스키마라고 부름
+얘네들을 쓰면 Constructor-arg 태그와 property 태그를 축약형으로 쓸 수 있음
+  -->
+  
+<bean id="f1" class="springIoc.sample5.User" />
+
+<bean id="f2" class="springIoc.sample5.User" >
+	<constructor-arg index="0" value="홍길동"></constructor-arg>
+	<constructor-arg index="1" value="2000-01-01"></constructor-arg>
+</bean>
+
+<bean id="f3" class="springIoc.sample5.User" >
+	<property name="name" value="신사임당"></property>
+	<property name="birth" value="2001-12-01"></property>
+</bean>
+
+<bean id="f4" class="springIoc.sample5.User" c:name="하이" c:birth="2011-12-31"/>
+<!--
+ c 스키마라는 것을 사용했을 때는 이렇게 축약형으로 사용할 수 있음 c:매개변수명 ="인자(값)" 
+ c:매개변수명 대신 c:_0 와 같이 index를 쓸 수도 있음 첫번째 매개변수라는 의미를 갖음
+ 일반적으로 당연히 축약형을 더 많이 사용함
+ -->
+<bean id="f5" class="springIoc.sample5.User" p:name="헬로" p:birth="2011-12-31"/>
+<!-- p 스키마도 마찬가지로 p:setter이름(당연히 set빼고 앞글자 소문자)으로 써주면 축약형인 것임 -->
+</beans>
+<!-- p: 같은 경우에는 for-each와 같은 연산을 할 수 없음/c:는 가능 -->

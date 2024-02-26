@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+<!-- 여기가 log4j에 대한 설정파일임 -->
+	<!-- Appenders -->
+		<!-- org.apache.log4j.ConsoleAppender로 출력 위치 지정(이 클래스는 console에 출력) -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+	<!-- 밑에 설정 부분에서 이 태그의 name 쓸 거임 -->
+	
+		<!-- 출력 방향 지정 : 콘솔은 콘솔인데 어느 콘솔? => 자바에서 지정한 우리가 흔히 아는 콘솔에 찍어라 라는 의미-->
+		<param name="Target" value="System.out" />
+		
+		<!-- log의 출력 형태 지정  -->
+		<layout class="org.apache.log4j.PatternLayout">
+		
+<!-- 			<param name="ConversionPattern" value="%-5p: %c - %m%n" /> -->
+			<param name="ConversionPattern" value="%-5p: %m - %c%n" />
+
+		</layout>
+		<!--
+		%-5p
+		-p: log level을 같이 찍으라는 의미
+		%m: log message를 출력하라는 의미
+		%d: log 발생하는 시점 출력
+		%c: 어떤 위치에서 찍혔는지를  출력
+		%n: 개행
+		  -->	
+	</appender>
+	
+	
+	<!-- Application Loggers -->
+	<!-- 
+	메세지를 appender에 전달하는 역할 
+	출력 레벨(6단계가 있음)이란 게 있는데 이것에 따라 출력 여부가 결정됨
+	
+	log level 
+	FATAL(6레벨) : 가장 높은 레벨이고 시스템에 심각한 오류가 있음을 지적하는 레벨
+	ERROR(5레벨) : 실행 중 에러가 발생했음을 알려주는 레벨
+	WARN(4레벨) : 오류의 원인이 될 수 있음을 알려주는 레벨
+	INFO(3단계) : 일반적으로 운영할 때 로직 확인용도로 찍히는 레벨
+	DEBUG(2단계) : 개발 시 디버깅 용도로 사용하는 레벨 -> sysout 대신 사용할 놈이 얘임
+	TRACE(1단계) : DEBUG의 상세버전
+	-->
+	<logger name="my.spring.springweb">
+		<level value="debug" /><!-- debug레벨부터 그 이상만 출력하라고 지정해주는 것/이 레벨 이하는 코드를 써도 출력되지 않음 -->
+	</logger>
+	
+	<!-- 3rdparty Loggers -->
+	<!-- spring이 자체적으로 찍는 log는 info레벨이라는 것을 설정해주는 부분 -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.beans">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="info" />
+	</logger>
+
+	<!-- Root Logger -->
+	<root>
+		<priority value="warn" />
+		<!-- level을 안 잡아줬을 때 Default는 warn임 -->
+		<appender-ref ref="console" />
+		<!-- console이라는 이름을 가진 appender를 사용하겠다고 명시해주는 부분 -->
+	</root>
+	
+</log4j:configuration>

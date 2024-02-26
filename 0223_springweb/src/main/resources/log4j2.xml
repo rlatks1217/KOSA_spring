@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  
+  <!-- appender를 4개 잡음 -->
+    <Appenders>
+    <!-- 파일에 log 찍겠다는 설정 /당연히 폴더는 있어야 함 , 파일은 log찍힐 때 알아서 그 경로에 만들어줄 것-->
+        <File name="File_1" fileName="c:/log_test/myLog_1.log"
+            append="true">
+            <!-- 어떤 형태로 찍을지 정해줌 -->
+            <PatternLayout pattern="%t %-5p %c{2} - %m%n" />
+        </File>
+        <File name="File_2" fileName="c:/log_test/myLog_2.log"
+            append="true">
+            <PatternLayout pattern="%d - %m%n" />
+        </File>
+        
+        <!-- console에 log 찍겠다는 설정 target: console은 console인데 자바 console에 찍겠다고 명시해준 것 -->
+        <Console name="stdout_1" target="SYSTEM_OUT">
+            <PatternLayout pattern="%p == %m == %d%n" />
+        </Console>
+        <Console name="stdout_2" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd:HH:mm} >> %m%n" />
+        </Console>
+    </Appenders>
+  
+    <Loggers>
+  		
+  		<!-- log로 찍을 레벨 설정 -->
+        <Logger name="case1" level="warn">
+            <AppenderRef ref="File_1" />
+        </Logger>
+  
+        <!-- additivity="false" 상위 appender를 상속받지 않습니다. 즉, 여기서는 Root를 제외시키는 역할을 
+            합니다. 로그가 중복으로 출력되는것을 제어할 목적으로 사용됩니다. -->
+        <Logger name="case2" level="info" additivity="false">
+            <AppenderRef ref="File_2" />
+            <AppenderRef ref="stdout_1" />
+        </Logger>
+  
+        <Logger name="case3" level="debug" additivity="false">
+            <AppenderRef ref="stdout_1" />
+            <AppenderRef ref="File_1" />
+        </Logger>
+  
+  		<!-- 내가 굳이 설정잡지 않았을 때 나오는 잡히는 설정 -->
+        <Root level="INFO">
+            <AppenderRef ref="stdout_2" />
+        </Root>
+    </Loggers>
+
+	<Logger name="book" level="debug" ></Logger>
+	
+</Configuration>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+	<h1>Test Link</h1>
+	<hr>
+	id : <input type="text" id="id">
+	<br><br>
+	name : <input type="text" id="name">
+	<br><br>
+	<button onclick="myFunc('get')">GET방식 호출</button>	
+	<button onclick="myFunc('delete')">DELETE방식 호출</button>	
+</body>
+
+<script type="text/javascript">
+	function myFunc(restMethod) {
+		$.ajax({
+			url: '/springweb/rest/user',
+			async: true,
+			method: restMethod,
+			data: {
+				id: $('#id').val(),
+				name: $('#name').val()
+				},
+			success: function() {
+				alert('성공성공!');
+			},
+			error: function() {
+				alert('정신 안차리냐 ㅡㅡ');
+			}
+			
+		});
+	}
+	
+</script>
+</html>

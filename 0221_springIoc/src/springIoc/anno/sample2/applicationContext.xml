@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<context:component-scan base-package="springIoc.anno.sample2"></context:component-scan>
+	<!-- context:component-scan태그여야 함 꼭 기억하자 비슷하게 생긴 애들이 더 있으니까 헷갈리지 말기 -->
+	
+	<bean id="emp1" class="springIoc.anno.sample2.Emp"
+	p:name="홍길동" p:age="20"></bean>
+	
+	<bean id="dept" class="java.lang.String" c:_0="개발1팀"></bean>
+	<!-- 
+	String도 reference Type이기 때문에 Bean으로 만든 후 주입이 가능하다. 
+	지금은 생성자를 통해서 해당 String Bean의 문자열을 초기화하고 있음
+	
+	String 객체는  다른 객체와는 다른 특수한 형태의 객체 - 해당 객체 내부에는 "개발 1팀"이라는 값만 들어있음
+	String dept = new String("개발1팀"); 이런 식으로 객체를 만드는 것과 같음 
+	근데 String은 특수한 객체이기 때문에 dept.~~ 이런 식으로 사용하지 않고 dept만 써줘도 해당 객체가 가진 값을 반환해줌
+	-> 물론 이건 당연히 String a = "aa"이런 식으로 String 객체를 생성하는 것과는 다름
+	(전자는 Heap에 저장이 되는 객체이고 후자는 String pool에 들어가는 String 객체임)
+	-->
+
+</beans>

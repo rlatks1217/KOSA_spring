@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	
+	<default-servlet-handler />
+	<!-- dispatcher Servlet이 일단 모든 요청을 받는데 요청 온 url에 대한 handler가 없으면 모두 default Servlet에 넘김 -->
+	<!-- 기본적으로 dispatcher Servlet이 처리하지 못한 url이 오면 WEB-INF를 제외한 webapp 폴더부터 url에 해당하는 파일을 찾음
+	url으로 온 경로에 파일이 없을 경우 404 에러 뱉음(그래서 404가 안 뜨려면 해당 파일이 webapp폴더안에 있어야 하며 url로 온 경로도 정확해야 하는 거지) -->
+	<!-- webapp 폴더부터 찾게 하려면 이 설정이 있어야 함! 이 설정이 없으면 밑에 resources태그가 있지 않는 이상 webapp폴더 안에 어떤 파일도 찾을 수 없음 -->
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<!-- mapping속성의 의미 : default servlet이 처리를 담당할 url을 추가로 지정해주는 속성
+	(해당 url이 오면 webapp부터 찾는 것이 아니라 다이렉트로 resources폴더 안에서 찾도록 해줄 목적으로 설정한 것) -->
+	<!-- location속성의 의미 : mapping 속성에 써있는 url이 왔을 때 실제 파일을 찾을 경로 -->
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- view resolver 설정 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	<!-- 
+	view resolver 설정
+	Handler(지금은 HomeController를 지칭)로부터 String이 리턴되면 Dispatcher Servlet이 그것을 받음
+	Dispatcher Servlet은 클라이언트에 응답을 줘야 하기 때문에 여기서 view resolver에 문자열을 넘김 
+	view resolver은 넘겨받은 문자열에 해당하는 jsp파일을 찾음
+	(/WEB-INF/views/(prefix의 value값) + 넘겨받은 문자열 + .jsp(suffix의 value값) 합쳐서 
+	만든 경로에 있는 파일을 찾고 그 파일을 view 객체로 만들어서 Dispatcher Servlet에 반환해주는 것 
+	결국 다시 view객체를 반환받은 Dispatcher Servlet이  view객체로 만들어서 클라이언트에게 이것을 응답으로 돌려주게 되는 거지)
+	 -->
+	
+	<context:component-scan base-package="my.spring.springweb" use-default-filters="false">
+	<!-- @Controller, @Service, @Repository, @Configration를 기본적으로 다 찾게 하는 속성 : true가 기본이기 때문에 생략해왔던 것임 -->
+	<context:include-filter type="annotation" 
+	expression="org.springframework.stereotype.Controller"/>
+	<!-- @Controller만 찾아서 Bean으로 만들고 관리하게 하기 위해 필터 설정 -->
+	</context:component-scan>
+	<!-- 
+	해당 경로 안에서 annotation을 찾아라 라는 설정
+	해당 경로 안에서 @Component 라는 것을 찾으면 해당 클래스를 Bean으로 만들어줌/하지만 실제로는 이 어노테이션은 많이 안씀
+	대신 이 어노테이션의 하위 어노테이션인 @Controller, @Service, @Repository(Dao Bean만들 때), @Configration 를 주로 사용
+	
+	 @Component 쓰는 것을 포괄적 선언이라고 함
+	 나머지를 쓰는 것을 역할에 집중된 선언이라고 함(실제로 각 어노테이션에 따른 별개의 기능들을 수행하는 것이 아니라 명시적으로 어떤 역할하는 애인지 나타내기 위해 사용)
+	 -->
+</beans:beans>

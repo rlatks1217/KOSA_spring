@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+        xmlns="http://www.springframework.org/schema/mvc"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- context태그를 사용할 수 있는 스키마가 없으면 오류남 -->
+    <context:component-scan base-package="my.spring.springweb">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+	<!-- 
+	모든 컴포넌트 하위 어노테이션들을 찾게 하되 @Controller만 빼고 찾아라 라고 설정해준 것
+	컨트롤러를 제외한 나머지 Bean들만 생성,관리하기 위해서 설정해주는 것임
+	  -->
+</beans:beans>
+<!-- 
+HomeController : DispatcherServlet으로부터 전달된 request를 처리하는 Controller(일반 클래스)
+DispatcherServlet : 내가 만든 건 아닌데 클라이언트가 요청을 보내면 얘가 먼저 받아서 적절한 컨트롤러에게 그 요청을 전달함(Front Controller라고 함)
+결국 최종적으로는 일반 클래스가 요청을 받아서 처리하게 되는 것
+
+resources : 정적 resource들만 들어가는 폴더(변할 데이터도 없는 HTML, CSS, JS, Images 같은 애들)
+web.xml : DispatcherServlet에 대한 설정파일 / servlet web application context의 설정파일(servlet-context.xml)의 위치를 여기서 설정함
+pom.xml : 프로젝트의 전체설정이 여기에 다 들어감
+-->
